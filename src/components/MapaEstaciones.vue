@@ -1,6 +1,6 @@
 <template>
-  <div class="min-h-screen flex flex-col">
-    <main class="flex-grow container mx-auto px-4 py-6">   
+  <div>
+    <main>   
       <div style="height:600px; width:100%">
         <l-map ref="map" v-model:zoom="zoom" :center="center">
           <l-tile-layer
@@ -21,12 +21,11 @@
             :weight="3"
           >
             <l-popup :max-width="400">
-              <div class="p-3 min-w-80">
+              <div>
                 <!-- Header con estado actual -->
-                <div class="flex items-center justify-between mb-3">
-                  <h3 class="font-bold text-lg">{{ estacion.nombre }}</h3>
+                <div>
+                  <h3>{{ estacion.nombre }}</h3>
                   <div 
-                    class="px-3 py-1 rounded-full text-white text-sm font-semibold"
                     :style="{ backgroundColor: getMarkerColor(estacion) }"
                   >
                     {{ getEstadoTexto(estacion) }}
@@ -34,34 +33,34 @@
                 </div>
                 
                 <!-- Información básica -->
-                <div class="grid grid-cols-2 gap-2 mb-3 text-sm">
+                <div>
                   <p><strong>Comuna:</strong> {{ estacion.comuna }}</p>
                   <p><strong>Región:</strong> {{ estacion.region }}</p>
                 </div>
                 
                 <!-- Datos actuales del contaminante -->
-                <div v-if="estacion.realtime && estacion.realtime[0]" class="mb-3">
-                  <div class="bg-gray-100 p-3 rounded">
-                    <h4 class="font-semibold text-md mb-2">
+                <div v-if="estacion.realtime && estacion.realtime[0]">
+                  <div>
+                    <h4>
                       {{ estacion.realtime[0].name }} - Estado Actual
                     </h4>
-                    <div class="flex justify-between items-center">
+                    <div>
                       <div>
-                        <span class="text-2xl font-bold">{{ getCurrentValue(estacion) }}</span>
-                        <span class="text-sm text-gray-600">µg/m³</span>
+                        <span>{{ getCurrentValue(estacion) }}</span>
+                        <span>µg/m³</span>
                       </div>
-                      <div class="text-right">
-                        <div class="text-sm text-gray-600">ICAP</div>
-                        <div class="text-xl font-semibold">{{ getCurrentICAP(estacion) }}</div>
+                      <div>
+                        <div>ICAP</div>
+                        <div>{{ getCurrentICAP(estacion) }}</div>
                       </div>
                     </div>
-                    <div class="text-xs text-gray-500 mt-1">
+                    <div>
                       Última actualización: {{ estacion.realtime[0].datetime }}
                     </div>
                   </div>
                 </div>     
                 <!-- Red y empresa -->
-                <div class="text-xs text-gray-500 border-t pt-2">
+                <div>
                   <p><strong>Red:</strong> {{ estacion.red }}</p>
                   <p><strong>Empresa:</strong> {{ estacion.empresa }}</p>
                 </div>
@@ -195,6 +194,7 @@ const getTendencia = (estacion: any) => {
 .leaflet-container {
   height: 100%;
   width: 100%;
+  z-index: 0;
 }
 
 .leaflet-popup-content-wrapper {

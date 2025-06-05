@@ -1,7 +1,10 @@
 <template>
-  <footer class="text-center text-sm py-4 bg-gray-100 mt-auto">
+  <footer class="bg-gradient-to-r from-gray-900 via-blue-900 to-gray-900 text-white mt-auto p-6 text-center w-full">
     <p>© {{ new Date().getFullYear() }} Chile Respira</p>
-    <p>Datos públicos del <a href="https://sinca.mma.gob.cl/" target="_blank" class="text-blue-600 underline">SINCA - MMA Chile</a></p>
+    <p>
+      Datos públicos del
+      <a href="https://sinca.mma.gob.cl/" target="_blank" class="underline text-blue-300">SINCA - MMA Chile</a>
+    </p>
     <p>Desarrollado por Nelly Aviles</p>
   </footer>
 </template>
