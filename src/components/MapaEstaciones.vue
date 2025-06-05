@@ -1,10 +1,6 @@
 <template>
   <div class="min-h-screen flex flex-col">
-    <main class="flex-grow container mx-auto px-4 py-6">
-      <h2 class="text-2xl font-bold mb-4">
-        Calidad del Aire en Tiempo Real - {{ estacionesValidas.length }} estaciones
-      </h2>
-      
+    <main class="flex-grow container mx-auto px-4 py-6">   
       <div style="height:600px; width:100%">
         <l-map ref="map" v-model:zoom="zoom" :center="center">
           <l-tile-layer
@@ -83,7 +79,6 @@ import { ref, computed } from 'vue'
 import "leaflet/dist/leaflet.css"
 import { LMap, LTileLayer, LCircleMarker, LPopup } from "@vue-leaflet/vue-leaflet"
 
-// Props - ahora con la estructura real de SINCA
 const props = defineProps<{
   estaciones: Array<{
     nombre: string
@@ -141,7 +136,7 @@ const estacionesValidas = computed(() => {
 // Funciones para obtener color del marcador según estado
 const getMarkerColor = (estacion: any) => {
   if (!estacion.realtime || !estacion.realtime[0] || !estacion.realtime[0].tableRow) {
-    return '#9CA3AF' // gris para sin datos
+    return '#9CA3AF'
   }
   
   const color = estacion.realtime[0].tableRow.color
@@ -194,37 +189,6 @@ const getTendencia = (estacion: any) => {
     altura: Math.max(4, (row.c[1]?.v || 0) / maxVal * 40)
   }))
 }
-
-// Estadísticas generales
-const estadisticas = computed(() => {
-  const stats = {
-    bueno: 0,
-    regular: 0,
-    malo: 0,
-    sinDatos: 0
-  }
-  
-  estacionesValidas.value.forEach(estacion => {
-    if (!estacion.realtime || !estacion.realtime[0]) {
-      stats.sinDatos++
-      return
-    }
-    
-    const status = estacion.realtime[0].tableRow?.status?.toLowerCase() || ''
-    
-    if (status.includes('bueno')) {
-      stats.bueno++
-    } else if (status.includes('regular') || status.includes('satisfactorio')) {
-      stats.regular++
-    } else if (status.includes('alerta') || status.includes('emergencia') || status.includes('crítico')) {
-      stats.malo++
-    } else {
-      stats.sinDatos++
-    }
-  })
-  
-  return stats
-})
 </script>
 
 <style>
